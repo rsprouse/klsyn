@@ -3,6 +3,11 @@
 # C extensions
 *.so
 
+# Vim swap and backup files
+*.swp
+*.*~
+*~
+
 # Packages
 *.egg
 *.egg-info
