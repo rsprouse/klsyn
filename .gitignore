@@ -8,6 +8,9 @@
 *.*~
 *~
 
+# Directories
+c/deprecated
+
 # Packages
 *.egg
 *.egg-info
