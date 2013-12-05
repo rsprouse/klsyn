@@ -1,0 +1,52 @@
+* Prerequisites
+
+    python -- both 2.6 and 2.7 seem to work.
+
+    Cython
+    numpy
+    scipy.io.wavfile
+
+    If compiling from source, a C compiler is also necessary.
+
+
+* Installing
+
+    This command compiles the C extension and python modules and
+    copies the modules and scripts to the system Python installation:
+
+      python setup.py install
+
+
+* Troubleshooting
+
+    [Problem from 20131125]
+
+    Note for building under Windows using MinGW, run the above in a
+    MinGW shell. If you get the error "Unable to find vcvarsall.bat"
+    it might be necessary to provide the hint that mingw32 is the
+    compiler to use by editing (or creating) distutils.cfg for your
+    version of python (e.g. C:\Python27\Lib\distutils\distutils.cfg)
+    and adding the section:
+
+    [build]
+    compiler=mingw32
+
+    Newer versions of cygwin do not recognize the -mno-cygwin option to
+    gcc, and for these versions you can edit
+    C:\Python27\Lib\distutils\cygwincompiler.py and remove references
+    to -mno-cygwin.
+    
+    [Problem from 20131127]
+
+    On a Windows system compiled with mingw, the klatt_wrap extension
+    intermittently failed to load with:
+
+    ImportError: DLL load failed: Invalid access to memory location
+
+    The problem was resolved by upgrading from gcc 4.4.3 to 4.8.1. For
+    context and additional solutions see:
+
+    http://stackoverflow.com/questions/13173944/how-to-debug-dll-load-failed-invalid-access-to-memory-location
+    http://bugs.python.org/issue16472
+
+
