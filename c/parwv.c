@@ -294,7 +294,7 @@ void parwav(int16_t *jwave) {
 
 skip:   ltemp = out * amp_gain0;                /* Convert back to integer */
         getmax(ltemp,&sigmx);
-		*jwave++ = truncate(-ltemp);
+		*jwave++ = parwv_truncate(-ltemp);
     }
 }
 
@@ -1286,7 +1286,7 @@ void pr_pars(void) {
 
 /* Truncate arg to fit into 16-bit word */
 
-short truncate(long arg) {
+short parwv_truncate(long arg) {
 
 	short iarg;               /* 16 bit size argument */
 

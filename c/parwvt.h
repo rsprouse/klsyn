@@ -450,7 +450,7 @@ void reson5p(void);
 void reson6p(void);
 void resonnpp(void);
 void getmax(long ,long *);
-short truncate(long );
+short parwv_truncate(long );
 void setabc(int ,int ,float *,float *,float *);
 void setzeroabc(int ,int ,float *,float *,float *);
 void resonglot(void);
