@@ -10,6 +10,7 @@
 
 # Directories
 c/deprecated
+klsyn_old
 
 # Packages
 *.egg
