@@ -17,6 +17,21 @@
       python setup.py install
 
 
+* Packaging as a standalone executable
+
+    The klattsyn.py script can be compiled as an executable with pyinstaller.
+
+    First, pyinstaller must be installed. pywin32 might be necessary as
+    well on Windows systems.
+
+    Second, install the klsyn package with setup.py.
+
+    Finally, run pyinstaller from the klsyn source root directory. It might
+    be necessary to add the path location of the klsyn package, e.g.:
+
+      pyinstaller --paths=/c/Python27/Lib/site-package/ --onefile scripts/klattsyn.py
+
+
 * Troubleshooting
 
     [Problem from 20131125]
