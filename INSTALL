@@ -24,12 +24,15 @@
     First, pyinstaller must be installed. pywin32 might be necessary as
     well on Windows systems.
 
-    Second, install the klsyn package with setup.py.
+    Second, install the klsyn package with setup.py as described above.
 
     Finally, run pyinstaller from the klsyn source root directory. It might
     be necessary to add the path location of the klsyn package, e.g.:
 
       pyinstaller --paths=/c/Python27/Lib/site-package/ --onefile scripts/klattsyn.py
+
+    This example worked with a Windows 7 system with the MinGW compiler, and
+    the command was run from a Git Bash shell.
 
 
 * Troubleshooting
