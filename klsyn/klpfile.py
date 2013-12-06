@@ -59,15 +59,19 @@ class klpfile(object):
                             params[fld].append(int(val))
         return params
 
-    def write(self, fname, synth=None):
+    def write(self, fname, synth=None, withTimeIndex=True):
         ''' Write out params to a .klp param file. synth is a klatt_wrap synthesizer object to read params from. '''
         with open(fname, 'wb') as f:
             varied = []
             for (param, val) in synth.get_constant_params().items():
-                print "writing param ", param, " val ", val
                 f.write("{:s}\t{:d}\n".format(param, val))
             f.write("\n__varied_params__\n")
             vp = synth.get_varied_params()
+            if withTimeIndex:
+                f.write("_msec\t")
             f.write("\t".join(vp.keys()) + "\n")
-            for vals in np.char.mod('%d', np.array(vp.values()).transpose()):
+            param_values = np.char.mod('%d', np.array(vp.values()).transpose())
+            for idx, vals in enumerate(param_values):
+                if withTimeIndex:
+                    f.write("{:d}\t".format(idx * synth.get_ms_per_frame()))
                 f.write("\t".join(vals) + "\n")

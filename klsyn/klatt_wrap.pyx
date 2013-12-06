@@ -151,6 +151,10 @@ class synthesizer(object):
         klatt_defs.nvar = num_varied
         return self.get_params()
 
+    def get_ms_per_frame(self):
+        ''' Get the milliseconds-per-frame value. '''
+        return klatt_defs.ms_frame
+
     def synthesize(self):
         ''' Synthesize waveform based on state of global variables in C code and return the waveform data and sample rate. '''
         klatt_defs.actonrequest('s', 1) # Assume synthesis and batch mode.
