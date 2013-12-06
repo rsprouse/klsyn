@@ -59,7 +59,6 @@ static int cdefval[NPAR] = { 11025, 5, 500, 2, 5, 1, 100, 60, 350, 60, 850, 70, 
 void helpa(void);
 void makefilenames(char *);
 void read_doc(char *);
-void read_klt(char *);
 void readconfig(void);
 void clearpar(int np);
 void helpr(void);
