@@ -2,7 +2,7 @@
 klsyn/klatt_wrap.c
 *.spec
 doc/test.wav
-doc/test.wav.klp
+doc/test.full.klp
 
 *.py[cod]
 
