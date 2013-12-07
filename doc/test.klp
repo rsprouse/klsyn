@@ -1,9 +1,10 @@
 du	  300
 oq	   70
 g0	   75
+agc	0
 
 __varied_params__
-msec	f0	av	notes
+_msec	f0	av	notes
 0	140	0
 5	140	28
 10	141	57
