@@ -30,4 +30,4 @@ if __name__ == '__main__':
         synth.set_params(params)
         (d,rate) = synth.synthesize()
         scipy.io.wavfile.write(fname + '.wav', rate, d)
-        klpfile().write(fname + '.full.klp', synth=synth)
+        klpfile().write(fname + '.wav.klp', synth=synth)
