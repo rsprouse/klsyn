@@ -52,7 +52,6 @@ def read(fname):
     comments = {'header': '', 'constant': {}, 'varied': []}
     fields = None
     field_map = {}
-    nf = 0
     varparams_re = re.compile('^\s*_varied_params_\s*$')
     comment_re = re.compile('^\s*#')               # a comment line
     empty_re = re.compile('^\s*$')                 # an empty line
@@ -129,7 +128,6 @@ def write(fname, synth=None, comments=None, withTimeIndex=True):
             pass
 
         # Write the constant parameters.
-        #varied = []
         for (param, val) in synth.get_constant_params().items():
             f.write("{:s}{:s}{:d}".format(param, sep, val))
             try:
