@@ -49,7 +49,7 @@ def read(fname):
     ''' Read a .klp parameter file into a dict and return the dict. Also return comments. '''
     sep = "\s+"
     params = {}
-    comments = {'constant': {}, 'varied': []}
+    comments = {'header': '', 'constant': {}, 'varied': []}
     fields = None
     field_map = {}
     nf = 0
@@ -58,16 +58,24 @@ def read(fname):
     empty_re = re.compile('^\s*$')                 # an empty line
     eol_comment_re = re.compile('(?P<comment>\s*#.*)$')         # an end-of-line comment
     with open(fname, 'rb') as f:
-        loc = f.tell()
+
+        # Read header comments.
+        reading_header = True
         header_comments = ''
-        for line in f.readlines():                 # Collect all header comment lines.
+        loc = f.tell()
+        while reading_header:
+            line = f.readline()
             if comment_re.search(line):
-                header_comments += line
+                loc = f.tell()
+                header_comments += line.rstrip() + "\n"
             else:
-                f.seek(loc)
-                break
+                f.seek(loc)   # Not a comment, rewind to previous line.
+                comments['header'] = header_comments
+                reading_header = False
+
+        # Read constant and varied parameters.
         reading_constparams = True
-        for line in f.readlines():                 # Read params.
+        for line in f.readlines():
             if varparams_re.search(line):
                 reading_constparams = False
                 continue
@@ -114,7 +122,14 @@ def write(fname, synth=None, comments=None, withTimeIndex=True):
     ''' Write out params to a .klp param file. synth is a klatt_wrap synthesizer object to read params from. '''
     sep = "\t"
     with open(fname, 'wb') as f:
-        varied = []
+        # Write the header comments.
+        try:
+            f.write(comments['header'])
+        except TypeError:     # comments == None
+            pass
+
+        # Write the constant parameters.
+        #varied = []
         for (param, val) in synth.get_constant_params().items():
             f.write("{:s}{:s}{:d}".format(param, sep, val))
             try:
@@ -122,6 +137,8 @@ def write(fname, synth=None, comments=None, withTimeIndex=True):
             except (TypeError, KeyError):
                 pass
             f.write("\n")
+
+        # Write the varied parameters.
         f.write("\n_varied_params_\n")
         vp = synth.get_varied_params()
         if withTimeIndex:
