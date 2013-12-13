@@ -1,0 +1,43 @@
+			Synthesis specification for file:    'a.wav'
+
+
+
+	Max output signal (overload if greater than 0.0 dB) is  -4.6 dB  
+	Total number of waveform samples = 11000
+
+
+  CURRENT CONFIGURATION:
+    49 parameters
+
+       SYM V/C  MIN   VAL   MAX       SYM V/C  MIN   VAL   MAX
+       ------------------------       ------------------------
+       sr   C  5000 22050 22050       nf   C     1     5     8
+       du   C    30   500  5000       ss   C     1     1     2
+       ui   C     1     5    20       rs   C     1     1    99
+       f0   v     0   100   500       av   v     0    60    80
+       F1   v   180   850  1300       b1   v    30    60  1000
+       F2   v   550  1200  3000       b2   v    40    90  1000
+       F3   v  1200  2500  4800       b3   v    60   150  1000
+       F4   v  2400  3250  4990       b4   v   100   200  1000
+       F5   v  3000  3700  4990       b5   v   100   200  1500
+       f6   v  3000  4990  4990       b6   v   100   500  4000
+       fz   v   180   280   800       bz   v    40    90  1000
+       fp   v   180   280   500       bp   v    40    90  1000
+       ah   v     0     0    80       oq   v    10    50    80
+       at   v     0     0    80       tl   v     0     0    34
+       af   v     0     0    80       sk   v     0     0   100
+       a1   v     0     0    80       p1   v    30    80  1000
+       a2   v     0     0    80       p2   v    40   200  1000
+       a3   v     0     0    80       p3   v    60   350  1000
+       a4   v     0     0    80       p4   v   100   500  1000
+       a5   v     0     0    80       p5   v   100   600  1500
+       a6   v     0     0    80       p6   v   100   800  4000
+       an   v     0     0    80       ab   v     0     0    80
+       ap   v     0     0    80       os   C     0     0    20
+       g0   v     0    60    80       dF   v     0     0   100
+       db   v     0     0   400
+
+
+	No parameters are varied
+
+
