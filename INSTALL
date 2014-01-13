@@ -29,10 +29,25 @@
     Finally, run pyinstaller from the klsyn source root directory. It might
     be necessary to add the path location of the klsyn package, e.g.:
 
-      pyinstaller --paths=/c/Python27/Lib/site-package/ --onefile scripts/klattsyn.py
+      pyinstaller --paths=/c/Python27/Lib/site-packages/ --onefile scripts/klattsyn.py
 
     This example worked with a Windows 7 system with the MinGW compiler, and
     the command was run from a Git Bash shell.
+
+    NOTE: Running the above pyinstaller command will overwrite the .spec
+    file that is currently (as of 20140113) included in the repository.
+    The executable created from this command has an annoying warning,
+    and you can avoid the warning by packaging included in the repository
+    instead:
+
+      pyinstaller klattsyn.spec
+
+    This should be run from the same shell as (and instead of) the above
+    command. If you already ran the first command you must restore the
+    .spec file included in the repository.
+
+    In the future the .spec file can be removed if the pyinstaller
+    folks fix the packaging problem.
 
     On an OS X machine, the compiler needed to be pointed to the location
     of the klsyn package, and this worked:
@@ -42,7 +57,7 @@
 
 * Troubleshooting
 
-    [Problem from 20131125]
+[Problem from 20131125]
 
     Note for building under Windows using MinGW, run the above in a
     MinGW shell. If you get the error "Unable to find vcvarsall.bat"
@@ -59,7 +74,9 @@
     C:\Python27\Lib\distutils\cygwincompiler.py and remove references
     to -mno-cygwin.
     
-    [Problem from 20131127]
+
+
+[Problem from 20131127]
 
     On a Windows system compiled with mingw, the klatt_wrap extension
     intermittently failed to load with:
@@ -72,4 +89,32 @@
     http://stackoverflow.com/questions/13173944/how-to-debug-dll-load-failed-invalid-access-to-memory-location
     http://bugs.python.org/issue16472
 
+
+
+[Problem from 20140113]
+
+    Pyinstaller produces an executable that produces an unhelpful
+    warning message whenever it is run:
+
+      WARNING: file already exists but should not: C:\Users\<user>\AppData\Local\Temp\_MEI355602\Include\pyconfig.h)
+
+    See http://stackoverflow.com/questions/19055089/pyinstaller-onefile-warning-pyconfig-h-when-importing-scipy-or-scipy-signal
+
+    for more on this issue.
+
+    We work around the problem by packaging with a customized pyinstaller
+    .spec file. See packaging section above.
+
+
+
+[Problem from 20140113]
+
+    When running pyinstaller as a non-administrative user on a Windows
+    system, pyinstaller terminated with the unhelpful message:
+
+    sh: /c/Python27/Scripts/pyinstaller: Bad file number
+
+    pyinstaller needs to run as an administrative user, so launch the
+    shell from which it will run with a right-click then selecting 'Run as
+    administrator'.
 
