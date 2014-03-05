@@ -87,7 +87,7 @@ def read(fname):
                     comment = m.group('comment')
                     line = eol_comment_re.sub('', line)
                 (p, val) = re.split(sep, line.strip())
-                params[p.strip()] = int(val.strip())
+                params[p.strip()] = int(round(float(val.strip())))
                 comments['constant'][p.strip()] = comment.rstrip()
             elif fields == None:       # reading_constparams == False
                 line = eol_comment_re.sub('', line)
@@ -114,7 +114,7 @@ def read(fname):
                     val = val.strip()
                     fld = field_map[str(idx)]
                     if fld in klatt_wrap.params_map.keys():
-                        params[fld].append(int(val))
+                        params[fld].append(int(round(float(val))))
     return (params, comments)
 
 def write(fname, synth=None, comments=None, withTimeIndex=True):
