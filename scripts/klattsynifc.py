@@ -14,6 +14,7 @@ import scipy.io.wavfile
 import klsyn.klatt_wrap as kw
 import klsyn.klpfile
 
+
 def ifc2klp(fname,start,end):
     ''' read an ifcformant formant traces file and convert to params for the klatt synthesizer '''
     sep = "\s+"
@@ -77,8 +78,8 @@ def ifc2klp(fname,start,end):
     params['av'] = []
     params['af'] = []
     rms_change = 60 - max(nonklatt_params['rms'])
-    for i in range(0,len(nonklatt_params['rms'])-1):
-        scaledrms = max(0,nonklatt_params['rms'][i]+rms_change)
+    for i,rms in enumerate(nonklatt_params['rms']):
+        scaledrms = max(0,rms+rms_change)
         if params['f0'][i]>0:
             params['av'].append(scaledrms)
             params['af'].append(0)
@@ -95,22 +96,18 @@ Usage = 'klattsyn ifcparamfile [start] [end]'
 if __name__ == '__main__':
     ''' Run the Klatt synthesizer on an ifcformant output file, produce output .wav and write out complete .klp parameter file.'''
     try:
-        sys.argv[1] != None
+        pfile = sys.argv[1]
     except:
         raise Exception('Usage: {:s}'.format(Usage))
     try:
-        start = sys.argv[2]
+        start = float(sys.argv[2])
     except:
         start = 0.0
     try:
-        end = sys.argv[3]
+        end = float(sys.argv[3])
     except:
         end = float('inf')
-    print "start is %0.4f" % start
-    print "end is %0.4f" % end
 
-    pfile = sys.argv[1]
-    print "pfile is %s" % pfile
     fname, fext = os.path.splitext(pfile)
     synth = kw.synthesizer()
     
