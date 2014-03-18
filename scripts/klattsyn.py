@@ -13,6 +13,7 @@ import os, sys
 import scipy.io.wavfile
 import klsyn.klatt_wrap
 import klsyn.klpfile
+import klsyn.xlsfile
 
 Usage = 'klattsyn paramfile ... [paramfileN]'
 
@@ -26,8 +27,14 @@ if __name__ == '__main__':
     for pfile in sys.argv[1:]:
         fname, fext = os.path.splitext(pfile)
         synth = klsyn.klatt_wrap.synthesizer()
-        (params, comments) = klsyn.klpfile.read(pfile)
+        if fext == '.xls':
+            (params, comments) = klsyn.xlsfile.read(pfile)
+        else:
+            (params, comments) = klsyn.klpfile.read(pfile)
         synth.set_params(params)
         (d,rate) = synth.synthesize()
         scipy.io.wavfile.write(fname + '.wav', rate, d)
-        klsyn.klpfile.write(fname + '.wav.klp', synth=synth, comments=comments)
+        if fext == '.xls':
+            klsyn.xlsfile.write(fname + '.wav.xls', synth=synth, comments=comments)
+        else:
+            klsyn.klpfile.write(fname + '.wav.klp', synth=synth, comments=comments)
