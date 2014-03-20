@@ -38,12 +38,14 @@ def interactive(params,comments,fname):
     
     while True:
         cmd = raw_input('\nEnter \'o\', \'s\', \'p\', \'q\',    \'c\', \'v\', or \'t\': ').strip()
+
         if cmd == 'c':
             fld = raw_input("\twhich parameter? ").strip()
             if fld not in kw.params_map.keys() or fld == 'ui':  # ignore unknown parameter or UI
                 continue
             val = int(raw_input("\twhat value should it be? ").strip())
             params[fld]=val
+
         if cmd == 's':
             temp = raw_input('\tWhat should the first name of the .wav file be? ').strip()
             try:
@@ -54,8 +56,9 @@ def interactive(params,comments,fname):
             synth.set_params(params)
             (d,rate) = synth.synthesize()
             scipy.io.wavfile.write(fname + '.wav', rate, d)
-            klsyn.klpfile.write(fname + '.wav.klp', synth=synth, comments=comments)
-            print "\tFiles {} and {} were saved.".format(fname+'.wav',fname+'.wav.klp')
+            klsyn.klpfile.write(fname + '.klp', synth=synth, comments=comments)
+            print "\tFiles {} and {} were saved.".format(fname+'.wav',fname+'.klp')
+
         if cmd == 'q':
             return 'finished'
 
@@ -65,8 +68,8 @@ def interactive(params,comments,fname):
             (d,rate) = synth.synthesize()
             scipy.io.wavfile.write('klattsyn_temp.wav', rate, d)
             playaudio('klattsyn_temp.wav')
-            
             print "\n"  
+
         if cmd == 'o':
             pfile = raw_input("\tenter the file name: ").strip()
             fname, fext = os.path.splitext(pfile)
@@ -94,7 +97,6 @@ def interactive(params,comments,fname):
             else:
                 print "\tthe file format of {} was not recognized.".format(pfile)
                 continue
-            
             print "\tfinished reading the file {}".format(pfile)
         
         if cmd == 'v':
@@ -133,8 +135,15 @@ def interactive(params,comments,fname):
                     
                 dv = v-ov
                 for t1 in range(ot,t+ui,ui):
-                    newv = ov + ((dv*(t1-ot))/(t-ot))
-                    params[fld].append(newv)
+                    idx = int(t1/ui)
+                    newv = int(round(ov + ((dv*(t1-ot))/(t-ot))))
+                    if (idx > len(params[fld])-1):
+                        while (idx > len(params[fld])):
+                            params[fld].append(0)
+                        params[fld].append(newv)
+                    else:
+                        oldval = params[fld].pop(idx)                  
+                        params[fld].insert(idx,newv)
                 ov = v
                 ot = t
                         
@@ -290,6 +299,6 @@ if __name__ == '__main__':
     else:        
         comments = {'header': '# produced by interactive mode\n', 'constant': {}, 'varied':[]}
         params = {}
-        fname = "klattsyn_temp_file"
+        fname = "klatt_temp"
         result = interactive(params,comments,fname)
         
