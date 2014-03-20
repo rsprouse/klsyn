@@ -19,5 +19,5 @@ setup(
   #ext_package='klatt_wrap',
   ext_modules = ext_modules,
   packages = ['klsyn'],
-  scripts = ['scripts/klattsyn.py']
+  scripts = ['scripts/klattsyn.py', 'scripts/klattsyn_interactive.py', 'scripts/doc2klp.py']
 )
