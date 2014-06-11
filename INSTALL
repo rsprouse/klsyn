@@ -2,9 +2,15 @@
 
     python -- both 2.6 and 2.7 seem to work.
 
-    Cython
-    numpy
-    scipy.io.wavfile
+    Python packages:
+      Cython
+      numpy
+      scipy.io.wavfile
+      wxpython (required for wxklsyn.pyw only)
+      matplotlib (required for wxklsyn.pyw only)
+
+    External executables
+      sox (sox.sourceforge.net; used for audio output in wxklsyn.pyw)
 
     If compiling from source, a C compiler is also necessary.
 
@@ -118,3 +124,18 @@
     shell from which it will run with a right-click then selecting 'Run as
     administrator'.
 
+[Problem from 20140610]
+
+   When running wxklsyn.pyw with Anaconda python on OS X, script ended with:
+
+This program needs access to the screen.
+Please run with a Framework build of python, and only when you are
+logged in on the main display of your Mac.
+
+   wxklsyn.pyw subsequently worked when invoked with Anaconda's pythonw:
+
+     > pythonw /path/to/wxklsyn.pyw
+
+   As a result, wxklsyn.pyw now executes itself with pythonw on the shebang
+   line. If that doesn't work on some systems, it will be worth trying to
+   invoke pythonw explicitly as shown in the above command line.
