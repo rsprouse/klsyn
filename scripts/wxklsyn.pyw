@@ -418,7 +418,7 @@ class EnterPanel(wx.Panel):
             v = [v]*len(t)
         self.line, = self.axes.plot(t,v,color="black")
         self.startline, = self.axes.plot(t,v,color="lightgray")
-        self.axes.set_title("Now drawing '{}': {}".format(par,param_info[self.par]['name']),loc='left')
+        self.axes.set_title("Now drawing '{}': {}".format(par,param_info[self.par]['name']))
         min=param_info[self.par]['min']
         max=param_info[self.par]['max']
         self.axes.set_ybound(min,max)
