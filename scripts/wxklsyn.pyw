@@ -1,4 +1,4 @@
-#!/usr/bin/env pythonw
+#!/usr/bin/env python
 
 # -*- coding: utf-8 -*-
 """
