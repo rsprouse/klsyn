@@ -24,6 +24,7 @@ setup(
   scripts = [
     'scripts/klattsyn.py',
     'scripts/klattsyn_interactive.py',
+    'scripts/klp_continuum.py',
     'scripts/doc2klp.py',
     'scripts/wxklsyn.pyw'
   ],
