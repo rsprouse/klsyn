@@ -11,6 +11,8 @@
  *         J. Acoust. Soc. Am., Mar. 1980. -- new voicing
  *         source.
  *
+ *   This software may not be resold or used in any commercial product.
+ *
  * Edit history
  * 000001 10-Mar-83 DK  Initial creation.
  * 000002  5-May-83 DK  Fix bug in operation of parallel F1
