@@ -19,7 +19,7 @@ def read(fname):
     empty_re = re.compile('^\s*$')
     varparams_re = re.compile('^\s*Varied Parameters:\s*$')
     dashes_re = re.compile('^\s*------------------------') # partial line before constant parameters
-    with open(fname, 'rb') as f:
+    with open(fname, 'r') as f:
         reading_constparams = False
         reading_varparams = False
         for line in f.readlines():

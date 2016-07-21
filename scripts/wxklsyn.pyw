@@ -226,9 +226,9 @@ def ifc2klp(fname,starttime,endtime):
     params = {}
     nonklatt_params={}
     comments = {'header': '#  produced by ifc2klp\n', 'constant': {}, 'varied': []}
-    print 'start {} to end {}'.format(starttime,endtime)
+    print('start {} to end {}'.format(starttime,endtime))
 
-    with open(fname, 'rb') as f:
+    with open(fname, 'r') as f:
             # Read header comments.
             reading_header = True
             firsttime = True
@@ -362,9 +362,9 @@ class DataCursor(object):
         # xdata, ydata = event.artist.get_data()
         # self.x, self.y = xdata[event.ind], ydata[event.ind]
         self.x, self.y = event.xdata, event.ydata
-        print 'in DataCursor(), x={} and y={}'.format(self.x,self.y)
+        print('in DataCursor(), x={} and y={}'.format(self.x,self.y))
         if self.x is not None:
-            print 'plot it'
+            print('plot it')
             self.annotation.xy = self.x, self.y
             self.annotation.set_text(self.text_template % (self.x, self.y))
             self.annotation.set_visible(True)
@@ -399,7 +399,7 @@ class EnterPanel(wx.Panel):
              return           
         x = round(x/ui)*ui
         y = int(round(y))
-        print 'par={}, x={}, y={}'.format(self.par,x,y)
+        print('par={}, x={}, y={}'.format(self.par,x,y))
         interpolate(self.params,x,y,self.par) 
         self.line.set_ydata(self.params[self.par])
         self.canvas.draw()
@@ -734,7 +734,7 @@ class MainFrame(wx.Frame):
         self.statusbar.SetStatusText("\tFiles {} and {} were saved.".format(self.fname+'.wav',self.fname+'.klp'))
 
     def OnOpen(self,e):
-        print "in OnOpen .... "
+        print("in OnOpen .... ")
         dirname = ''
         dlg = wx.FileDialog(self, "Choose a file", dirname, "", "*.*", wx.OPEN)
         if dlg.ShowModal() == wx.ID_OK:
@@ -814,7 +814,7 @@ class MyApp(wx.App):
 #-------------------------------------------------------------------
 
 def main():
-    print 'main is running...'
+    print('main is running...')
     app = MyApp(0)
     app.MainLoop()
 

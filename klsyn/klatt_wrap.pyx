@@ -97,7 +97,7 @@ class synthesizer(object):
         ''' Return constant params in a dict. '''
         params = {}
         for idx in range(klatt_defs.NPAR):
-            param = params_map.keys()[params_map.values().index(idx)]
+            param = list(params_map.keys())[list(params_map.values()).index(idx)]
             if klatt_defs.cv[idx] != klatt_defs.VARRIED:
                 params[param] = klatt_defs.defval[idx]
         for param in extra_params:
@@ -109,7 +109,7 @@ class synthesizer(object):
         ''' Return varied params in a dict. '''
         params = {}
         for idx in range(klatt_defs.NPAR):
-            param = params_map.keys()[params_map.values().index(idx)]
+            param = list(params_map.keys())[list(params_map.values()).index(idx)]
             if klatt_defs.cv[idx] == klatt_defs.VARRIED:
                 val = np.zeros([klatt_defs.nframes], dtype=np.int16)
                 for nf in range(len(val)):
@@ -120,8 +120,8 @@ class synthesizer(object):
     def get_params(self):
         ''' Return all params in a dict. '''
         return dict(
-                   self.get_constant_params().items() +
-                   self.get_varied_params().items()
+                   list(self.get_constant_params().items()) +
+                   list(self.get_varied_params().items())
         )
 
     def set_params(self, params=None):

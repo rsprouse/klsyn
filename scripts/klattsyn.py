@@ -35,6 +35,7 @@ if __name__ == '__main__':
         (d,rate) = synth.synthesize()
         scipy.io.wavfile.write(fname + '.wav', rate, d)
         if fext == '.xls':
-            klsyn.xlsfile.write(fname + '.wav.xls', synth=synth, comments=comments)
+            #klsyn.xlsfile.write(fname + '.wav.xls', synth=synth, comments=comments)
+            sys.stderr.write("XLS output not implemented.\n")
         else:
             klsyn.klpfile.write(fname + '.wav.klp', synth=synth, comments=comments)

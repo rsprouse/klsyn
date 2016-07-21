@@ -18,16 +18,17 @@ def interactive(params,comments,fname):
     sep = "\s+"
     ui = 5   # hard code 5ms frame size
 
-    print "Klattsyn Interactive"
-    print "     FILE "
-    print "       <o> to open a .klp or .fb file"
-    print "       <s> to save your results in .klp and .wav files."
-    print "       <p> to play the synthesized speech."
-    print "       <q> to quit without saving anything.\n"
-    print "     EDIT"
-    print "       <c> to input a constant parameter."
-    print "       <v> to input a varied parameter trajectory."
-    print "       <t> to show a table of parameters."
+    print("""
+Klattsyn Interactive
+     FILE 
+       <o> to open a .klp or .fb file
+       <s> to save your results in .klp and .wav files.
+       <p> to play the synthesized speech.
+       <q> to quit without saving anything.\n
+     EDIT
+       <c> to input a constant parameter.
+       <v> to input a varied parameter trajectory.
+       <t> to show a table of parameters.""")
 
     
     if 'du' not in params.keys():  # set defaults if not read from file
@@ -37,17 +38,33 @@ def interactive(params,comments,fname):
         ui = params['ui']
     
     while True:
-        cmd = raw_input('\nEnter \'o\', \'s\', \'p\', \'q\',    \'c\', \'v\', or \'t\': ').strip()
+        prompt = "\nEnter 'o', 's', 'p', 'q',    'c', 'v', or 't': "
+        try:
+            cmd = raw_input(prompt).strip()
+        except NameError:   # python 3.x
+            cmd = input(prompt).strip()
 
         if cmd == 'c':
-            fld = raw_input("\twhich parameter? ").strip()
+            prompt = "\twhich parameter? "
+            try:
+                fld = raw_input(prompt).strip()
+            except NameError:   # python 3.x
+                fld = input(prompt).strip()
             if fld not in kw.params_map.keys() or fld == 'ui':  # ignore unknown parameter or UI
                 continue
-            val = int(raw_input("\twhat value should it be? ").strip())
+            prompt = "\twhat value should it be? "
+            try:
+                val = int(raw_input(prompt).strip())
+            except NameError:   # python 3.x
+                val = int(input(prompt).strip())
             params[fld]=val
 
         if cmd == 's':
-            temp = raw_input('\tWhat should the first name of the .wav file be? ').strip()
+            prompt = '\tWhat should the first name of the .wav file be? '
+            try:
+                temp = raw_input(prompt).strip()
+            except NameError:   # python 3.x
+                temp = input(prompt).strip()
             try:
                 fname, fext = os.path.splitext(temp)
             except ValueError:
@@ -57,7 +74,7 @@ def interactive(params,comments,fname):
             (d,rate) = synth.synthesize()
             scipy.io.wavfile.write(fname + '.wav', rate, d)
             klsyn.klpfile.write(fname + '.klp', synth=synth, comments=comments)
-            print "\tFiles {} and {} were saved.".format(fname+'.wav',fname+'.klp')
+            print("\tFiles {} and {} were saved.".format(fname+'.wav',fname+'.klp'))
 
         if cmd == 'q':
             return 'finished'
@@ -68,16 +85,20 @@ def interactive(params,comments,fname):
             (d,rate) = synth.synthesize()
             scipy.io.wavfile.write('klattsyn_temp.wav', rate, d)
             playaudio('klattsyn_temp.wav')
-            print "\n"  
+            print("\n"  )
 
         if cmd == 'o':
-            pfile = raw_input("\tenter the file name: ").strip()
+            prompt = "\tenter the file name: "
+            try:
+                pfile = raw_input(prompt).strip()
+            except NameError:   # python 3.x
+                pfile = input(prompt).strip()
             fname, fext = os.path.splitext(pfile)
         
             try:
                 f = open(pfile, 'r')
             except:
-                print "\tdidn't find file: {}".format(pfile)
+                print("\tdidn't find file: {}".format(pfile))
                 continue
             
             d=f.read()
@@ -89,26 +110,40 @@ def interactive(params,comments,fname):
             elif (re.match('^sec*.',d) != None):
                 start = 0
                 end = -1
-                start = float(raw_input("\treading an ifcformants file - start time? ").strip())
-                end = float(raw_input("\treading an ifcformants file - end time? ").strip())
+                prompt1 = "\treading an ifcformants file - start time? "
+                prompt2 = "\treading an ifcformants file - end time? "
+                try:
+                    start = float(raw_input(prompt1).strip())
+                    end = float(raw_input(prompt2).strip())
+                except NameError:   # python 3.x
+                    start = float(input(prompt1).strip())
+                    end = float(input(prompt2).strip())
 
                 (params,comments) = ifc2klp(pfile,start,end)
                 fname = fname + "_klp"
             else:
-                print "\tthe file format of {} was not recognized.".format(pfile)
+                print("\tthe file format of {} was not recognized.".format(pfile))
                 continue
-            print "\tfinished reading the file {}".format(pfile)
+            print("\tfinished reading the file {}".format(pfile))
         
         if cmd == 'v':
-            fld = raw_input("\tenter trajectory, which paramter? ").strip()
+            prompt = "\tenter trajectory, which paramter? "
+            try:
+                fld = raw_input(prompt).strip()
+            except NameError:   # python 3.x
+                fld = input(prompt).strip()
             if fld not in kw.params_map.keys():
                 continue
             if fld not in params.keys() or not isinstance(params[fld],list):
                 params[fld] = []
-            print "\tenter time|value pairs like this \'0 60\'. Empty line terminates."
+            print("\tenter time|value pairs like this \'0 60\'. Empty line terminates.")
             ot=ov=-1
             while True:
-                time_val = raw_input("\ttime|value pair: ").strip()
+                prompt = "\ttime|value pair: "
+                try:
+                    time_val = raw_input(prompt).strip()
+                except NameError:   # python 3.x
+                    time_val = input(prompt).strip()
                 if time_val == "":
                     break
                 try:
@@ -116,11 +151,11 @@ def interactive(params,comments,fname):
                 except ValueError:
                     continue
                 if time < 0:
-                    print "time can't be less than zero"
+                    print("time can't be less than zero")
                     continue
                 if int(time) >= params.get('du'):
                     maxtime = params.get('du')-ui
-                    print "\t{} is the current maximum time value.".format(maxtime)
+                    print("\t{} is the current maximum time value.".format(maxtime))
                     continue
                 if (ot == -1):  # first time point
                     ot = int(ui*round(float(time)/ui))  # force it to multiple of ui
@@ -130,7 +165,7 @@ def interactive(params,comments,fname):
                 v = float(val)
 
                 if t <= ot:      # see if we are going forwards or backwards
-                    print "enter sucessively larger time values."
+                    print("enter sucessively larger time values.")
                     continue
                     
                 dv = v-ov
@@ -163,7 +198,7 @@ def show_params(params):
                     ncol += 1
         for fld,val in sorted(params.items()):
             if isinstance(val,list):
-                print "{}: {}".format(fld,val)
+                print("{}: {}".format(fld,val))
                 
 def ifc2klp(fname,start,end):
     ''' read an ifcformant formant traces file and convert to params for the klatt synthesizer '''
@@ -271,7 +306,7 @@ if __name__ == '__main__':
         try:
             f = open(pfile, 'r')
         except:
-            print "didn't find file: {}".format(pfile)
+            print("didn't find file: {}".format(pfile))
             exit()
             
         d=f.read()
@@ -293,7 +328,7 @@ if __name__ == '__main__':
             (params,comments) = ifc2klp(pfile,start,end)
             fname = fname + "_klp"
         
-        print "finished reading the file {}".format(pfile)
+        print("finished reading the file {}".format(pfile))
         result = interactive(params,comments,fname)        
         
     else:        

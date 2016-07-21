@@ -56,7 +56,7 @@ def read(fname):
     comment_re = re.compile('^\s*#')               # a comment line
     empty_re = re.compile('^\s*$')                 # an empty line
     eol_comment_re = re.compile('(?P<comment>\s*#.*)$')         # an end-of-line comment
-    with open(fname, 'rb') as f:
+    with open(fname, 'r') as f:
 
         # Read header comments.
         reading_header = True
@@ -120,7 +120,7 @@ def read(fname):
 def write(fname, synth=None, comments=None, withTimeIndex=True):
     ''' Write out params to a .klp param file. synth is a klatt_wrap synthesizer object to read params from. '''
     sep = "\t"
-    with open(fname, 'wb') as f:
+    with open(fname, 'w') as f:
         # Write the header comments.
         try:
             f.write(comments['header'])
@@ -142,7 +142,7 @@ def write(fname, synth=None, comments=None, withTimeIndex=True):
         if withTimeIndex:
             f.write("_msec_{:s}".format(sep))
         f.write(sep.join(vp.keys()) + "\n")
-        param_values = np.char.mod('%d', np.array(vp.values()).transpose())
+        param_values = np.char.mod('%d', np.array(list(vp.values())).transpose())
         for idx, vals in enumerate(param_values):
             if withTimeIndex:
                 f.write("{:d}{:s}".format(idx * synth.get_ms_per_frame(), sep))
