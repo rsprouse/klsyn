@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/home/ubuntu/miniconda3/bin/python
 
 # -*- coding: utf-8 -*-
 """
@@ -29,32 +29,38 @@ nsteps = 7   # the number of files will be nsteps + 1
 
 if __name__ == '__main__':
 
-    print "klp_continnum: make a continuum between two .klp files"
-    print "  - time warp if the files are different durations"
-    print "  - time warp segments if there are matching comments in the .klp files"
+    print("klp_continnum: make a continuum between two .klp files")
+    print("  - time warp if the files are different durations")
+    print("  - time warp segments if there are matching comments in the .klp files")
 
     if len(sys.argv) > 1:
         pfile = sys.argv[1]
         fname, fext = os.path.splitext(pfile)
         if fext != '.klp':
-            print "{} is not a .klp file. ".format(pfile)
+            print("{} is not a .klp file. ".format(pfile))
         else:
             file1 = pfile
         if len(sys.argv)>2:
             pfile = sys.argv[2]
             fname, fext = os.path.splitext(pfile)
             if fext != '.klp':
-                print "{} is not a .klp file. ".format(pfile)
+                print("{} is not a .klp file. ".format(pfile))
             else:
                 file2 = pfile
         else:
-            file2 = raw_input("Input second .klp file: ").strip()
-            
+            try:
+                file2 = raw_input("Input second .klp file: ").strip()
+            except NameError:
+                file2 = input("Input second .klp file: ").strip()
         
     else:
-        file1 = raw_input("Input first .klp file ").strip()
-        file2 = raw_input("Input second .klp file ").strip()
-    
+        try:
+            file1 = raw_input("Input first .klp file ").strip()
+            file2 = raw_input("Input second .klp file ").strip()
+        except NameError:
+            file1 = input("Input first .klp file ").strip()
+            file2 = input("Input second .klp file: ").strip()
+
     try:
         (params1, comments1) = klsyn.klpfile.read(file1)
     except:
@@ -65,7 +71,7 @@ if __name__ == '__main__':
         exit()
         
     if params1.get('ui') != params2.get('ui'):
-        print 'need to have <ui> match in the two files'
+        print('need to have <ui> match in the two files')
         exit()
     
     fname1, ext = os.path.splitext(file1)
@@ -87,7 +93,7 @@ if __name__ == '__main__':
             while j < len(labels2)-1 and labels2[j].strip() != labels1[i].strip():
                 j += 1
             if labels1[i].strip() != labels2[j].strip(): 
-                print 'expected to find a label {} in {}'.format(labels1[i],file2)
+                print( 'expected to find a label {} in {}'.format(labels1[i],file2))
             else:
                 segments1.append(i)
                 segments2.append(j)
@@ -142,5 +148,5 @@ if __name__ == '__main__':
         scipy.io.wavfile.write(fname + '.wav', rate, d)
         klsyn.klpfile.write(fname + '.klp', synth=synth, comments=comments1)
         playaudio(fname + '.wav')
-        print "\n--Files {} and {} were saved.".format(fname+'.wav',fname+'.klp')
+        print( "\n--Files {} and {} were saved.".format(fname+'.wav',fname+'.klp'))
 
