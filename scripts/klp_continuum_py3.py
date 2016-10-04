@@ -48,13 +48,21 @@ if __name__ == '__main__':
             else:
                 file2 = pfile
         else:
-            file2 = input("Input second .klp file: ").strip()
-            
+            try:
+                file2 = raw_input("Input second .klp file: ").strip()
+            except NameError:
+                file2 = input("Input second .klp file: ").strip()
         
     else:
-        file1 = input("Input first .klp file ").strip()
-        file2 = input("Input second .klp file ").strip()
-    
+        try:
+            file1 = raw_input("Input first .klp file ").strip()
+        except NameError:
+            file1 = input("Input first .klp file ").strip()
+        try:
+            file2 = raw_input("Input second .klp file ").strip()
+        except NameError:
+            file2 = input("Input second .klp file: ").strip()
+
     try:
         (params1, comments1) = klsyn.klpfile.read(file1)
     except:
