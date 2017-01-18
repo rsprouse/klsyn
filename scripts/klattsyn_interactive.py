@@ -209,7 +209,14 @@ def ifc2klp(fname,start,end):
     nonklatt_params={}
     comments = {'header': '#  produced by ifc2klp\n', 'constant': {}, 'varied': []}
 
-    with open(fname, 'rb') as f:
+    # Not sure if this test is necessary. This script originally used
+    # mode 'rb' under Python 2.7, and we switch to 'r' for Python 3.
+    # Probably 'r' mode is okay under 2.7 as well.
+    if isinstance('test', bytes):
+        mode = 'rb'   # Python 2.7
+    else:
+        mode = 'r'
+    with open(fname, mode) as f:
         # Read header comments.
         reading_header = True
         firsttime = True
