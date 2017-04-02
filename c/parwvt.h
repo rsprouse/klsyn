@@ -260,7 +260,7 @@ static float onemd ;   /* in voicing one-pole low-pass filter         */
 
 
 /*
- * Constant B0 controls shape of glottal pulse as a function
+ * Constant B0 (Bzero) controls shape of glottal pulse as a function
  * of desired duration of open phase N0
  * (Note that N0 is specified in terms of 40,000 samples/sec of speech)
  *
@@ -283,9 +283,9 @@ static float onemd ;   /* in voicing one-pole low-pass filter         */
  *
  *    Thus, to generate the table below for 40 <= nopen <= 263:
  *
- *      B0[nopen - 40] = 1920000 / (nopen * nopen)
+ *      Bzero[nopen - 40] = 1920000 / (nopen * nopen)
  */
-short B0[224] = {
+short Bzero[224] = {
         1200,   1142,   1088,   1038,   991,
         948,    907,    869,    833,    799,
         768,    738,    710,    683,    658,
