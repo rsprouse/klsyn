@@ -630,7 +630,7 @@ void pitch_synch_par_reset(void) {
 
 
 /*        Reset a & b, which determine shape of "natural" glottal waveform */
-            b = B0[nopen-40];
+            b = Bzero[nopen-40];
                 a = (b * nopen) * .333;
 
 /*        Reset width of "impulsive" glottal pulse */
