@@ -2,14 +2,22 @@
 
 from distutils.core import setup
 from distutils.extension import Extension
+import platform
 from Cython.Distutils import build_ext
 import numpy
+
+
+math_lib = ["m"]
+
+if platform.platform()[:7] == "Windows":
+  math_lib = []
+
 
 ext_modules = [
   Extension(
     name="klsyn.klatt_wrap",
     sources=["klsyn/klatt_wrap.pyx"],
-    libraries = ["m"],
+    libraries = math_lib,
     include_dirs=[numpy.get_include()],
     language="c",
   )
