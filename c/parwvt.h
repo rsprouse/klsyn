@@ -9,6 +9,17 @@
 #ifndef PARWVT_H
 #define PARWVT_H 1
 
+/*
+  A B0 macro is defined in termios.h and can interfere with the variable
+  of the same name in this file. The termios B0 macro is related to
+  baud rate of serial modems. We aren't likely to need this definition
+  and it should be safe to undef in the case that termios is included
+  somewhere in the compilation toolchain before this file.
+*/
+#ifdef B0
+#undef B0
+#endif
+
 /* VARIABLES TO HOLD SPEAKER DEFINITION FROM HOST:                    */
 
 static int outsl;   /* Output waveform selector			      */
