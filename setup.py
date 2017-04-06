@@ -10,7 +10,6 @@ import numpy
 math_lib = ["m"]
 
 if platform.platform()[:7] == "Windows":
-  print("Windows Found - Removing Linking to Math.lib")
   math_lib = []
 
 
