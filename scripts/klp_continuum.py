@@ -1,4 +1,4 @@
-#!/home/ubuntu/miniconda3/bin/python
+#!/usr/bin/env python
 
 # -*- coding: utf-8 -*-
 """
