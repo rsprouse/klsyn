@@ -150,7 +150,7 @@ Klattsyn Interactive
                     (time,val) = re.split(sep,time_val)
                 except ValueError:
                     continue
-                if time < 0:
+                if int(time) < 0:
                     print("time can't be less than zero")
                     continue
                 if int(time) >= params.get('du'):
