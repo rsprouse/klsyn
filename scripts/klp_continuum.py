@@ -7,7 +7,7 @@ Created on Wed Nov 20 14:40:35 2013
 @author: Keith Johnson (keithjohnson@berkeley.edu)
 
 """
-import os, sys, re, math, platform
+import os, sys, re, platform
 import scipy.io.wavfile
 import klsyn.klatt_wrap as kw
 import klsyn.klpfile
