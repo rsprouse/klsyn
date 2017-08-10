@@ -6,7 +6,6 @@ Created on Wed Nov 20 14:40:35 2013
 
 @author: Keith Johnson (keithjohnson@berkeley.edu)
 
-this is a command line implementation with a pygame play command
 """
 import os, sys, re, math, platform
 import scipy.io.wavfile
@@ -25,7 +24,7 @@ def playaudio(filename):
     
 
 Usage = 'klp_continuum (klpfile1) (klpfile2)'
-nsteps = 7   # the number of files will be nsteps + 1
+nsteps = 9   # the number of files will be nsteps + 1
 
 if __name__ == '__main__':
 
@@ -71,7 +70,7 @@ if __name__ == '__main__':
         exit()
         
     if params1.get('ui') != params2.get('ui'):
-        print('need to have <ui> match in the two files')
+        print('<ui> should be the same value in the two files')
         exit()
     
     fname1, ext = os.path.splitext(file1)
