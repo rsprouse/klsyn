@@ -28,7 +28,7 @@ nsteps = 9   # the number of files will be nsteps + 1
 
 if __name__ == '__main__':
 
-    print("klp_continnum: make a continuum between two .klp files")
+    print("klp_continuum: make a continuum between two .klp files")
     print("  - time warp if the files are different durations")
     print("  - time warp segments if there are matching comments in the .klp files")
 
