@@ -30,7 +30,9 @@ import klsyn.klatt_wrap as klatt_wrap
 # in which the columns are the parameters, and the rows are time points.
 # The first line of the table is a header that defines the columns. Each
 # column name defined in this header must be a valid parameter name, or the
-# name must begin and end with '_', in which case the column is ignored.
+# name must begin and end with '_', in which case the column is ignored,
+# unless it is passed through the optional *args, in which case it is processed
+# as the other parameters defined in klatt_wrap.params_map.keys().
 #
 # The primary use of the ignored column is so that human readers can include
 # a time index for each of the rows for their own convenience. By default,
@@ -45,7 +47,7 @@ import klsyn.klatt_wrap as klatt_wrap
 # and if these comments are supplied to write() they will be written in the
 # corresponding locations.
 
-def read(fname):
+def read(fname,*args):
     ''' Read a .klp parameter file into a dict and return the dict. Also return comments. '''
     sep = "\s+"
     params = {}
@@ -97,6 +99,9 @@ def read(fname):
                     field_map[str(idx)] = fld
                     if fld in klatt_wrap.params_map.keys():
                         params[fld] = []
+                    elif (fld.startswith('_') and fld.endswith('_')):
+                        if (args and fld in args):
+                            params[fld] = []
                     elif not (fld.startswith('_') and fld.endswith('_')):
                         raise Exception(
                             "Unrecognized varied parameter '{:s}'.\n".format(
@@ -114,6 +119,8 @@ def read(fname):
                     val = val.strip()
                     fld = field_map[str(idx)]
                     if fld in klatt_wrap.params_map.keys():
+                        params[fld].append(int(round(float(val))))
+                    elif (args and fld in args):
                         params[fld].append(int(round(float(val))))
     return (params, comments)
 
