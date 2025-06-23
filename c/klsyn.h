@@ -12,7 +12,7 @@
 #define VARRIED         'V'
 #define NOVICE          'n'
 #define MYTRUE            't'
-#define MAX_FRAMES      200
+#define MAX_FRAMES      10000
 
 #define OUTSELECT	  spkrdef[0]
 #define SAMRAT		  spkrdef[1]
