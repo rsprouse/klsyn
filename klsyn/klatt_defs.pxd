@@ -13,7 +13,7 @@ cdef extern from '../c/klsyn.h':
     int VARRIED         # 'V'
     int NOVICE          # 'n'
     int MYTRUE          # 't'
-    int MAX_FRAMES       # 200
+    int MAX_FRAMES       # 10000 (was 200 in original c code)
     int OUTSELECT	  #spkrdef[0]
     int SAMRAT		#  spkrdef[1]
     int NSAMP_PER_FRAME   #spkrdef[2]     /* Number of samples per frame */
